@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Password Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-icon">🌙</span>
+        </button>
+
+        <div class="card">
+            <h1>Password Generator</h1>
+            
+            <!-- Password Display Section -->
+            <div class="password-display-section">
+                <div class="password-container">
+                    <input 
+                        type="password" 
+                        id="passwordDisplay" 
+                        class="password-display" 
+                        readonly 
+                        placeholder="Your password will appear here"
+                    >
+                    <button class="eye-icon" id="eyeIcon" aria-label="Toggle password visibility">
+                        👁️
+                    </button>
+                </div>
+                <button class="copy-btn" id="copyBtn">
+                    <span class="copy-text">Copy</span>
+                    <span class="copy-feedback">Copied!</span>
+                </button>
+            </div>
+
+            <!-- Strength Indicator -->
+            <div class="strength-section">
+                <div class="strength-label">
+                    <span>Strength:</span>
+                    <span class="strength-text" id="strengthText">None</span>
+                </div>
+                <div class="strength-meter">
+                    <div class="strength-bar" id="strengthBar"></div>
+                </div>
+            </div>
+
+            <!-- Password Length Slider -->
+            <div class="control-group">
+                <label for="lengthSlider">Password Length: <span id="lengthValue">16</span></label>
+                <input 
+                    type="range" 
+                    id="lengthSlider" 
+                    min="8" 
+                    max="32" 
+                    value="16" 
+                    class="slider"
+                >
+                <div class="slider-labels">
+                    <span>8</span>
+                    <span>32</span>
+                </div>
+            </div>
+
+            <!-- Character Options -->
+            <fieldset class="control-group">
+                <legend>Include Characters:</legend>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            id="uppercase" 
+                            class="char-option" 
+                            checked
+                        >
+                        <span>Uppercase (A–Z)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            id="lowercase" 
+                            class="char-option" 
+                            checked
+                        >
+                        <span>Lowercase (a–z)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            id="numbers" 
+                            class="char-option" 
+                            checked
+                        >
+                        <span>Numbers (0–9)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            id="symbols" 
+                            class="char-option" 
+                            checked
+                        >
+                        <span>Symbols (! @ # $ %)</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Advanced Options (Collapsible) -->
+            <details class="advanced-options">
+                <summary>⚙️ Advanced Options</summary>
+                <div class="advanced-content">
+                    <label class="checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            id="avoidSimilar" 
+                            class="char-option"
+                        >
+                        <span>Avoid Similar Characters (O, 0, l, 1, S, 5)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            id="autoGenerate" 
+                            class="char-option"
+                            checked
+                        >
+                        <span>Auto-generate on change</span>
+                    </label>
+                </div>
+            </details>
+
+            <!-- Generate Button -->
+            <button class="generate-btn" id="generateBtn">Generate Password</button>
+
+            <!-- Password History -->
+            <div class="history-section">
+                <h3>
+                    <span>📋 Password History</span>
+                    <button class="clear-history-btn" id="clearHistoryBtn" title="Clear history">
+                        ✕
+                    </button>
+                </h3>
+                <div class="history-list" id="historyList">
+                    <p class="empty-history">No passwords generated yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
