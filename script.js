@@ -304,3 +304,58 @@ function escapeHtml(text) {
     return text.replace(/[&<>"']/g, m => map[m]);
 }
 
+// Theme Toggle
+themeToggle.addEventListener('click', toggleTheme);
+
+// Password Length
+lengthSlider.addEventListener('input', (e) => {
+    lengthValue.textContent = e.target.value;
+    if (autoGenerateCheckbox.checked) {
+        generatePassword();
+    }
+});
+
+// Character Options
+charOptionCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+        validateOptions();
+        if (autoGenerateCheckbox.checked && checkbox.id !== 'autoGenerate') {
+            generatePassword();
+        }
+    });
+});
+
+// Generate Button
+generateBtn.addEventListener('click', generatePassword);
+
+// Copy Button
+copyBtn.addEventListener('click', () => {
+    if (currentPassword) {
+        copyToClipboard(currentPassword, copyBtn);
+    }
+});
+
+// Eye Icon
+eyeIcon.addEventListener('click', togglePasswordVisibility);
+
+// History
+clearHistoryBtn.addEventListener('click', clearHistory);
+
+// Keyboard shortcut for generate
+document.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && e.target === generateBtn) {
+        generatePassword();
+    }
+});
+
+// INITIALIZATION
+
+function init() {
+    initTheme();
+    loadHistory();
+    validateOptions();
+    generatePassword();
+}
+
+// Start the app
+init();
