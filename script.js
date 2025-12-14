@@ -225,5 +225,82 @@ function renderHistory() {
     });
 }
 
+// CLIPBOARD & EYE ICON
 
+function copyToClipboard(text, button = null) {
+    navigator.clipboard.writeText(text).then(() => {
+        if (!button) button = copyBtn;
+        
+        // Show feedback
+        const wasButton = button === copyBtn;
+        if (wasButton) {
+            button.classList.add('copied');
+        } else {
+            button.classList.add('copied');
+        }
+        
+        setTimeout(() => {
+            button.classList.remove('copied');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+        showError('Failed to copy to clipboard');
+    });
+}
+
+function togglePasswordVisibility() {
+    const type = passwordDisplay.type === 'password' ? 'text' : 'password';
+    passwordDisplay.type = type;
+    updateEyeIcon();
+}
+
+function updateEyeIcon() {
+    const isHidden = passwordDisplay.type === 'password';
+    eyeIcon.textContent = isHidden ? '👁️' : '👁️‍🗨️';
+}
+
+// VALIDATION & ERROR HANDLING
+
+function validateOptions() {
+    const isAnyChecked = uppercaseCheckbox.checked || 
+                        lowercaseCheckbox.checked || 
+                        numbersCheckbox.checked || 
+                        symbolsCheckbox.checked;
+    
+    generateBtn.disabled = !isAnyChecked;
+    
+    if (!isAnyChecked) {
+        generateBtn.title = 'Select at least one character type';
+    } else {
+        generateBtn.title = 'Generate a new password';
+    }
+    
+    return isAnyChecked;
+}
+
+function showError(message) {
+    // Create a temporary error message
+    const error = document.createElement('div');
+    error.className = 'error-message';
+    error.textContent = message;
+    
+    passwordDisplay.parentElement.appendChild(error);
+    
+    setTimeout(() => {
+        error.remove();
+    }, 3000);
+}
+
+// UTILITY FUNCTIONS
+
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+}
 
